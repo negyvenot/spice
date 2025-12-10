@@ -1,0 +1,13 @@
+* minimal sine wave demo
+
+V1 in 0 SIN(0 1 1k)    ; 0V offset, 1V amplitude, 1 kHz
+R1 in out 1k
+R2 out 0 1k
+
+.tran 0.01ms 2ms       ; step, stop time
+.control
+  run
+  plot v(out)
+.endc
+
+.end

@@ -1,0 +1,6 @@
+* simplest circuit: 1V source + 1k resistor to ground
+V1 1 0 DC 1
+R1 1 0 1k
+
+.op
+.end
