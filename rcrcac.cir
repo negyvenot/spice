@@ -1,24 +1,20 @@
 .title dual rc ladder
 
-V1 in0 0 dc 0 ac 1 PULSE (0 .0005 1u 1u 1u 2m 1)
+* PULSE(VL VH TD TR TF PW PER PHASE)
+V1 in0 0 dc 0 ac 1 PULSE (0 5 1u 1u 1u 10m 0 0)
 
-R0 in0 in 100k
-Rf in e0 100k
+R0 in0 in 10
+E1 out 0 in 0 -100000
 
-C1 int in 15n
-C2 int out 15n
+C1 int in 100n
+C2 int out 100n
 R1 int 0 10k
-R2 out 0 10k
-E1 out 0 e0 0 -600
-
-*.ac dec 10 10 100k
+*R2 out 0 10k
 
 .control
 * settype decibel out
-tran 100u 1
+tran 10u 400m
 plot out
-*plot db(ac1.v(out)) db(ac2.v(out)) db(ac3.v(out)) db(ac4.v(out)) db(ac5.v(out)) db(ac6.v(out))
-*plot ac1.v(out) ac2.v(out) ac3.v(out) ac4.v(out) ac5.v(out) ac6.v(out)
 
 .endc
 
