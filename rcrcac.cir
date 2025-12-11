@@ -1,28 +1,22 @@
 .title dual rc ladder
 
-V1 in0 0 dc 0 ac 1 PULSE (0 .005 1u 1u 1u 20m 100m)
+V1 in0 0 dc 0 ac 1 PULSE (0 .0005 1u 1u 1u 2m 1)
 
-R0 in0 in 10k
-Rf in e0 10k
+R0 in0 in 100k
+Rf in e0 100k
 
-C1 int in 100n
-C2 int out 100n
-R1 int 0 100k
-R2 out 0 100k
-E1 out 0 e0 0 1.0000001
+C1 int in 15n
+C2 int out 15n
+R1 int 0 10k
+R2 out 0 10k
+E1 out 0 e0 0 -600
 
 *.ac dec 10 10 100k
-.tran 5m 100m
 
 .control
 * settype decibel out
-foreach val 33n 47n 68n 100n 150n 220n
-  alter C1 $val
-  alter C2 $val
-  run
-  reset
-end
-plot tran1.out tran2.out tran3.out tran4.out tran5.out tran6.out
+tran 100u 1
+plot out
 *plot db(ac1.v(out)) db(ac2.v(out)) db(ac3.v(out)) db(ac4.v(out)) db(ac5.v(out)) db(ac6.v(out))
 *plot ac1.v(out) ac2.v(out) ac3.v(out) ac4.v(out) ac5.v(out) ac6.v(out)
 
