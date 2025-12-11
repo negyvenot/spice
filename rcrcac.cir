@@ -1,24 +1,31 @@
 .title dual rc ladder
-* file name rcrcac.cir
-R1 int in 10k
-V1 in 0 dc 0 ac 1 PULSE (0 5 1u 1u 1u 10m 100m)
-R2 out int 10k
-C1 int 0 100n
-C2 out 0 100n
-R3 out 0 1meg
+
+V1 in0 0 dc 0 ac 1 PULSE (0 .005 1u 1u 1u 20m 100m)
+
+R0 in0 in 10k
+Rf in e0 10k
+
+C1 int in 100n
+C2 int out 100n
+R1 int 0 100k
+R2 out 0 100k
+E1 out 0 e0 0 1.0000001
+
+*.ac dec 10 10 100k
+.tran 5m 100m
 
 .control
-ac dec 10 1 100k
-*settype decibel out
-*plot vdb(int) xlimit 1 100k ylabel 'small signal gain'
-*settype phase out
-*plot cph(int) xlimit 1 100k ylabel 'phase (in rad)'
-let intd = 180/PI*cph(int)
-settype phase intd
-plot intd xlimit 1 100k ylabel 'phase'
-let outd = 180/PI*cph(out)
-settype phase outd
-plot outd xlimit 1 100k ylabel 'phase'
+* settype decibel out
+foreach val 33n 47n 68n 100n 150n 220n
+  alter C1 $val
+  alter C2 $val
+  run
+  reset
+end
+plot tran1.out tran2.out tran3.out tran4.out tran5.out tran6.out
+*plot db(ac1.v(out)) db(ac2.v(out)) db(ac3.v(out)) db(ac4.v(out)) db(ac5.v(out)) db(ac6.v(out))
+*plot ac1.v(out) ac2.v(out) ac3.v(out) ac4.v(out) ac5.v(out) ac6.v(out)
+
 .endc
 
 .end
